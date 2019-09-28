@@ -33,6 +33,30 @@ const twoSum = (nums, target) => {
 }
 ```
 
+## TS版
+
+```typescript
+interface objType {
+    [propName: string]: number
+}
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */ 
+const twoSum = (nums: number[], target: number): number[] | undefined => {
+	const obj: objType = {}
+    for (let i: number = 0, len: number = nums.length; i < len; ++i) {
+        const data: number = nums[i]
+        const res: number = target - data
+        if (res in obj) {
+            return [obj[res], i]
+        }
+        obj[data] = i
+    }
+}
+```
+
 ## PY版
 
 ```python
