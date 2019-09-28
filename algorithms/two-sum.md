@@ -62,19 +62,23 @@ const twoSum = (nums: number[], target: number): number[] | undefined => {
 ```python
 class Solution:
     """
-    Args:
-    	nums: List[int]
-    	target: int
-    Returns:
-    	返回结果是一个[int, int]或者None
+    :type arg1: List[int]
+    :param nums:
+
+    :type arg2: int
+    :param target:
+    
+    :rtype: (List[int], None)
+    :return:
     """
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: List[int], target: int) -> (List[int], None):
         obj = {}
         for i, data in enumerate(nums):
             res = target - data
             if res in obj:
                 return [obj[res], i]
             obj[data] = i
+        return None
         
 ```
 
