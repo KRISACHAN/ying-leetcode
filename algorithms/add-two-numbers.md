@@ -1,0 +1,156 @@
+# 两数相加
+
+> 给出两个 **非空** 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 **逆序** 的方式存储的，并且它们的每个节点只能存储 **一位** 数字。
+>
+> 如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+>
+> 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+>
+> 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+> 输出：7 -> 0 -> 8
+> 原因：342 + 465 = 807
+
+## 解题思路
+其实这题比较简单，无非是两个链表之间同层级的数字相加，唯一要注意的就是如果相加之后数字大于10，需要往下一级+1，当前级数是个位的那个数字。基本也是一个循环可以解决的。再注意处理下，如果一个链表长度长于另一个链表时的边界处理，其余就没啥了。
+
+## JS版
+```javascript
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+const addTwoNumbers = (l1, l2) => {
+    let l3 = null
+    let cache = 0
+    let tens = 0
+    while (l1 || l2) {
+        let total = 0
+        if (l1) {
+            let l1Head = l1.val
+            total += l1Head
+            l1 = l1.next
+        }
+        if (l2) {
+            let l2Head = l2.val
+            total += l2Head
+            l2 = l2.next
+        }
+        total += tens
+        if (total >= 10) {
+            total -= 10
+            tens = 1
+        } else {
+            tens = 0
+        }
+        let node = new ListNode(total)
+        if (cache) {
+            cache.next = node
+            cache = node
+        } else {
+            l3 = node
+            cache = l3
+        }
+    }
+    if (tens === 1) {
+        cache.next = new ListNode(1)
+    }
+    return l3
+}
+```
+
+## TS版
+
+```typescript
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+const addTwoNumbers = (l1, l2) => {
+    let l3: null | ListNode = null
+    let cache: ListNode | null = null
+    let tens: number = 0
+    while (l1 || l2) {
+        let total: number = 0
+        if (l1) {
+            let l1Head = l1.val
+            total += l1Head
+            l1 = l1.next
+        }
+        if (l2) {
+            let l2Head = l2.val
+            total += l2Head
+            l2 = l2.next
+        }
+        total += tens
+        if (total >= 10) {
+            total -= 10
+            tens = 1
+        } else {
+            tens = 0
+        }
+        let node = new ListNode(total)
+        if (cache) {
+            cache.next = node
+            cache = node
+        } else {
+            l3 = node
+            cache = l3
+        }
+    }
+    if (tens === 1) {
+        cache.next = new ListNode(1)
+    }
+    return l3
+}
+```
+
+
+
+## PY版
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        l3 = None
+        cache = 0
+        tens = 0
+        while l1 or l2:
+            total = 0
+            if l1:
+                l1Head = l1.val
+                total = total + l1Head
+                l1 = l1.next
+            if l2:
+                l1Head = l2.val
+                total = total + l1Head
+                l2 = l2.next
+            total = total + tens
+            if total >= 10:
+                total = total - 10
+                tens = 1
+            else:
+                tens = 0
+            node = ListNode(total)
+            if cache:
+                cache.next = node
+                cache = node
+            else:
+                l3 = node
+                cache = l3
+        if tens == 1:
+            cache.next = ListNode(1)
+        return l3
+```
+
