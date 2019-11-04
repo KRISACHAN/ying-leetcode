@@ -12,7 +12,7 @@ class ListNode {
  * @param {ListNode} l2
  * @return {ListNode}
  */
-const addTwoNumbers = (l1, l2) => {
+const addTwoNumbers = (l1: ListNode, l2: ListNode) => {
     let l3: null | ListNode = null
     let cache: ListNode | null = null
     let tens: number = 0
