@@ -1,51 +1,20 @@
-var ListNode = /** @class */ (function () {
-    function ListNode(value) {
-        this.val = value;
-        this.next = null;
-    }
-    return ListNode;
-}());
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
+ * @param {string} s
+ * @return {number}
  */
-var addTwoNumbers = function (l1, l2) {
-    var l3 = null;
-    var cache = null;
-    var tens = 0;
-    while (l1 || l2) {
-        var total = 0;
-        if (l1) {
-            var l1Head = l1.val;
-            total += l1Head;
-            l1 = l1.next;
-        }
-        if (l2) {
-            var l2Head = l2.val;
-            total += l2Head;
-            l2 = l2.next;
-        }
-        total += tens;
-        if (total >= 10) {
-            total -= 10;
-            tens = 1;
-        }
-        else {
-            tens = 0;
-        }
-        var node = new ListNode(total);
-        if (cache) {
-            cache.next = node;
-            cache = node;
-        }
-        else {
-            l3 = node;
-            cache = l3;
-        }
+const lengthOfLongestSubstring = s => {
+    let len = s.length
+    if (len <= 1) {
+        return len
     }
-    if (tens === 1) {
-        cache.next = new ListNode(1);
+    let max = 1
+    let record = 0
+    for (let i = 0; i < len; ++i) {
+        let index = s.indexOf(s[i], record)
+        if (index < i) {
+            record = index + 1
+        }
+        max = Math.max(max, i - record + 1)
     }
-    return l3;
-};
+    return max
+}

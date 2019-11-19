@@ -1,51 +1,20 @@
-class ListNode {
-    val: number
-    next: ListNode | any
-    constructor(value: number) {
-        this.val = value
-        this.next = null
-    }
-}
- 
 /**
- * @param {ListNode} l1
- * @param {ListNode} l2
- * @return {ListNode}
+ * @param {string} s
+ * @return {number}
  */
-const addTwoNumbers = (l1: ListNode, l2: ListNode) => {
-    let l3: null | ListNode = null
-    let cache: ListNode | null = null
-    let tens: number = 0
-    while (l1 || l2) {
-        let total: number = 0
-        if (l1) {
-            let l1Head = l1.val
-            total += l1Head
-            l1 = l1.next
-        }
-        if (l2) {
-            let l2Head = l2.val
-            total += l2Head
-            l2 = l2.next
-        }
-        total += tens
-        if (total >= 10) {
-            total -= 10
-            tens = 1
-        } else {
-            tens = 0
-        }
-        let node = new ListNode(total)
-        if (cache) {
-            cache.next = node
-            cache = node
-        } else {
-            l3 = node
-            cache = l3
-        }
+const lengthOfLongestSubstring = (s: string): number => {
+    let len: number = s.length
+    if (len <= 1) {
+        return len
     }
-    if (tens === 1) {
-        cache.next = new ListNode(1)
+    let max: number = 1
+    let record: number = 0
+    for (let i: number = 0; i < len; ++i) {
+        let index: number = s.indexOf(s[i], record)
+        if (index < i) {
+            record = index + 1
+        }
+        max = Math.max(max, i - record + 1)
     }
-    return l3
+    return max
 }
